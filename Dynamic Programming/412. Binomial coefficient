@@ -1,0 +1,36 @@
+Question: https://practice.geeksforgeeks.org/problems/ncr1019/1/
+Solution: https://www.youtube.com/watch?v=jIb1W3ObIho
+
+1c0, 1c1                                   1 1           //A pascal triangle is formed.
+2c0, 2c1, 2c2                       =>     1 2 1         //Each element is the sum of arr[i]+arr[i-1] from prev array
+3c0, 3c1, 3c2, 3c3                         1 3 3 1
+4c0, 4c1, 4c2, 4c3, 4c4                    1 4 6 4 1 
+.... 
+
+                                          
+                                   
+r = min (r, n-r)  // because ncr = nc(n-r)                                   
+We will create an array of size r. 
+fill it by 1,1,0,0,0,... 
+Now in a for loop till n do arr[i]+arr[i-1] for every array index.
+
+Code:
+
+int nCr(int n, int r){
+        // code here
+        if(n<r)
+         return 0;
+        r =  min(r, n-r);
+        int arr[r+1];
+        arr[0] = 1; arr[1]=1;
+        for(int i=2; i<r+1; i++)
+          arr[i]=0;
+        
+        for(int i=1; i<n; i++){
+            for(int j=r; j>=1; j--)
+              arr[j] = (arr[j]+arr[j-1]) % (1000000007);
+        }
+        
+        return arr[r];
+        
+    }
