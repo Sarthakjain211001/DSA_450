@@ -1,0 +1,38 @@
+Question: https://www.geeksforgeeks.org/program-nth-catalan-number/
+Solution: https://www.youtube.com/watch?v=CMaZ69P1bAc
+
+C0 = 1;
+C1 = 1;
+C2 = C0*C1 + C1*C0
+C3 = C0*C2 + C1*C1 + C2*C0
+C4 = C0*C3 + C1*C2 + C2*C1 + C3*C0
+... 
+
+Code: 
+
+cpp_int findCatalan(int n)       //O(n^2)
+    {
+        //code here
+        if(n==0 || n==1)
+          return 1;
+        
+        cpp_int arr[n+1];
+        arr[0]=1;
+        arr[1]=1;
+        for(int i=2; i<=n; i++){
+            int p=0,q=i-1;
+            cpp_int ans =0;
+            while(q>=0){
+                ans+= arr[p]*arr[q];
+                p++; q--;
+            }
+            arr[i]=ans;
+        }
+        return arr[n];
+    }
+    
+    
+ We can further optimize it. 
+ nth catalan number = 2nCn / (n+1) =  (2n)! / n! (n+1)!
+ 
+ Now we can use binomial coeff problem to calculate the factorials and find the nth catalan number in O(n) tc and O(n) SC.
